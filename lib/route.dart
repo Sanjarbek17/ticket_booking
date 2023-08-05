@@ -16,14 +16,16 @@ class AppRouter {
       GoRoute(
         path: initialRoute,
         builder: (context, state) => const MainPage(),
-      ),
-      GoRoute(
-        path: loginRoute,
-        builder: (context, state) => const LoginPage(),
-      ),
-      GoRoute(
-        path: registerRoute,
-        builder: (context, state) => const RegisterPage(),
+        routes: [
+          GoRoute(
+            path: 'login',
+            builder: (context, state) => const LoginPage(),
+          ),
+          GoRoute(
+            path: 'register',
+            builder: (context, state) => const RegisterPage(),
+          ),
+        ],
       ),
     ],
     // redirect: (BuildContext context, GoRouterState state) {
