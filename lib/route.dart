@@ -11,7 +11,7 @@ class AppRouter {
 
   static GoRouter router = GoRouter(
     debugLogDiagnostics: true,
-    initialLocation: '/',
+    initialLocation: initialRoute,
     routes: [
       GoRoute(
         path: initialRoute,
