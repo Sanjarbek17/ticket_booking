@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:ticket_booking/features/auth/data/models/user_modal.dart';
+import 'package:ticket_booking/features/auth/data/models/user_model.dart';
 
 class AuthLocalData {
   SharedPreferences sharedPreferences;

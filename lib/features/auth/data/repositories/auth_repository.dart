@@ -1,6 +1,6 @@
 import 'package:ticket_booking/features/auth/data/datasources/auth_local_data.dart';
 import 'package:ticket_booking/features/auth/data/datasources/auth_remote_data.dart';
-import 'package:ticket_booking/features/auth/data/models/user_modal.dart';
+import 'package:ticket_booking/features/auth/data/models/user_model.dart';
 
 class AuthRepository {
   final AuthRemoteData authRemoteData;

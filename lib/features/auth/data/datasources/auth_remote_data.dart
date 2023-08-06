@@ -1,7 +1,7 @@
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:ticket_booking/features/auth/data/models/user_modal.dart';
+import 'package:ticket_booking/features/auth/data/models/user_model.dart';
 
 class AuthRemoteData {
   final Dio dio;
