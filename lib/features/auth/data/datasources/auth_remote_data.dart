@@ -6,7 +6,7 @@ import 'package:ticket_booking/features/auth/data/models/user_model.dart';
 class AuthRemoteData {
   final Dio dio;
 
-  AuthRemoteData(this.dio);
+  AuthRemoteData({required this.dio});
 
   Future<UserModel> login(String email, String password) async {
     final response = await dio.post(

@@ -1,4 +1,4 @@
-part of 'auth_cubit_cubit.dart';
+part of 'auth_cubit.dart';
 
 enum AuthStatus { initial, loading, authenticated, unauthenticated, error }
 

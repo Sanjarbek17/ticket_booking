@@ -6,7 +6,7 @@ import 'package:ticket_booking/features/auth/data/models/user_model.dart';
 class AuthLocalData {
   SharedPreferences sharedPreferences;
 
-  AuthLocalData(this.sharedPreferences);
+  AuthLocalData({required this.sharedPreferences});
 
   // cache user
   Future<void> cacheUser(UserModel userModel) async {

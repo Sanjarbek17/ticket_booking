@@ -3,11 +3,11 @@ import 'package:bloc/bloc.dart';
 import '../../data/models/user_model.dart';
 import '../../data/repositories/auth_repository.dart';
 
-part 'auth_cubit_state.dart';
+part 'auth_state.dart';
 
-class AuthCubitCubit extends Cubit<AuthCubitState> {
+class AuthCubit extends Cubit<AuthCubitState> {
   final AuthRepository authRepository;
-  AuthCubitCubit({required this.authRepository}) : super(AuthCubitState());
+  AuthCubit({required this.authRepository}) : super(AuthCubitState());
 
   // login
   Future<void> login(String email, String password) async {
