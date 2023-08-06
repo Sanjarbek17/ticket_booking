@@ -14,9 +14,7 @@ class AuthRepository {
   // login
   Future<void> login(String email, String password) async {
     // call remote data
-    final user = await authRemoteData.login(email, password);
-    // cache user
-    await authLocalData.cacheUser(user);
+    await authRemoteData.login(email, password);
   }
 
   // register

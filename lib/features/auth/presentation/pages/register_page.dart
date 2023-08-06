@@ -12,6 +12,7 @@ import 'package:ticket_booking/route.dart';
 
 import '../widgets/custom_back_icon.dart';
 import '../widgets/custom_form_field.dart';
+import '../widgets/state_builder.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({super.key});
@@ -100,35 +101,7 @@ class _RegisterPageState extends State<RegisterPage> {
                     ),
                   ),
                 ),
-                if (state.status == AuthStatus.loading)
-                  Container(
-                    color: Colors.black.withOpacity(0.5),
-                    child: const Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  ),
-                if (state.status == AuthStatus.error)
-                  Container(
-                    color: Colors.black.withOpacity(0.5),
-                    child: Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            state.message,
-                            style: const TextStyle(color: Colors.white),
-                          ),
-                          const SizedBox(height: 20),
-                          ElevatedButton(
-                            onPressed: () {
-                              context.read<AuthCubit>().reset();
-                            },
-                            child: const Text('Try again'),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
+                StatusBuilder(state: state),
               ],
             );
           },

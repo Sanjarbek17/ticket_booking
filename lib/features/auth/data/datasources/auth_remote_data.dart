@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:dio/dio.dart';
 import 'package:ticket_booking/features/auth/data/models/user_model.dart';
 
@@ -8,19 +6,16 @@ class AuthRemoteData {
 
   AuthRemoteData({required this.dio});
 
-  Future<UserModel> login(String email, String password) async {
+  Future<void> login(String email, String password) async {
     final response = await dio.post(
       '/user/login/',
       data: {
-        'email': email,
+        'username': email,
         'password': password,
       },
     );
 
-    if (response.statusCode == 200) {
-      String cookie = Cookie.fromSetCookieValue(response.headers['set-cookie']![0]).name;
-      return UserModel(email: email, crsfToken: cookie);
-    } else {
+    if (response.statusCode != 200) {
       throw Exception('Failed to login ${response.data}');
     }
   }
