@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:ticket_booking/route.dart';
 
 import '../widgets/bottom_text.dart';
 import '../widgets/custom_back_icon.dart';
@@ -7,8 +9,17 @@ import '../widgets/custom_form_field.dart';
 import '../widgets/triple_box_icon.dart';
 import '../widgets/yellow_button.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  // controllers
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -30,9 +41,16 @@ class LoginPage extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 30),
-                    const CustomFormField(labelText: 'Enter your email'),
+                    CustomFormField(
+                      labelText: 'Enter your email',
+                      controller: emailController,
+                    ),
                     const SizedBox(height: 20),
-                    const CustomFormField(labelText: 'Enter your password', obscureText: true),
+                    CustomFormField(
+                      labelText: 'Enter your password',
+                      obscureText: true,
+                      controller: passwordController,
+                    ),
                     const SizedBox(height: 10),
                     const Row(
                       mainAxisAlignment: MainAxisAlignment.end,
@@ -48,7 +66,11 @@ class LoginPage extends StatelessWidget {
                     const SizedBox(height: 20),
                     const TripleBoxIcon(),
                     const SizedBox(height: 20),
-                    const BottomText(buttonText: 'Sign up', text: 'Don\'t have an account?'),
+                    BottomText(
+                      buttonText: 'Sign up',
+                      text: 'Don\'t have an account?',
+                      onPressed: () => context.go(AppRouter.registerRoute),
+                    ),
                   ],
                 ),
               ),

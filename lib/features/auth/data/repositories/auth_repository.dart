@@ -22,9 +22,7 @@ class AuthRepository {
   // register
   Future<void> register(UserModel userModel, String password) async {
     // call remote data
-    final user = await authRemoteData.register(userModel, password);
-    // cache user
-    await authLocalData.cacheUser(user);
+    await authRemoteData.register(userModel, password);
   }
 
   // reset password

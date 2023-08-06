@@ -5,9 +5,13 @@ import 'features/auth/presentation/pages/login_page.dart';
 import 'features/auth/presentation/pages/register_page.dart';
 
 class AppRouter {
+  // auth
   static const String initialRoute = '/';
   static const String loginRoute = '/login';
   static const String registerRoute = '/register';
+
+  // home
+  static const String homeRoute = '/home';
 
   static GoRouter router = GoRouter(
     debugLogDiagnostics: true,

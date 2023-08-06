@@ -4,12 +4,14 @@ class CustomFormField extends StatefulWidget {
   final String labelText;
   final String? Function(String?)? validator;
   final bool? obscureText;
+  final TextEditingController controller;
 
   const CustomFormField({
     super.key,
     this.validator,
     required this.labelText,
     this.obscureText,
+    required this.controller,
   });
 
   @override
@@ -21,6 +23,7 @@ class _CustomFormFieldState extends State<CustomFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: widget.controller,
       obscureText: widget.obscureText != null ? !visibility : false,
       decoration: InputDecoration(
         suffixIcon: widget.obscureText != null

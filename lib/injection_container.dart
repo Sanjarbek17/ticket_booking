@@ -1,4 +1,6 @@
+import 'package:cookie_jar/cookie_jar.dart';
 import 'package:dio/dio.dart';
+import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:ticket_booking/features/auth/data/repositories/auth_repository.dart';
@@ -38,14 +40,16 @@ Future<void> init() async {
   // sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(sl()));
 
   BaseOptions options = BaseOptions(
-    baseUrl: "https://api.themoviedb.org/3/",
+    baseUrl: "http://127.0.0.1:8000/",
   );
 
   //! External
   final sharedPreferences = await SharedPreferences.getInstance();
+  // cookie manager
   final dio = Dio(options);
+  CookieJar cookieJar = CookieJar();
+  dio.interceptors.add(CookieManager(cookieJar));
 
   sl.registerLazySingleton(() => sharedPreferences);
   sl.registerLazySingleton(() => dio);
-  sl.registerLazySingleton(() => sharedPreferences);
 }

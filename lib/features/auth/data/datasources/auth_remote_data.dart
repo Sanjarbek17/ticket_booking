@@ -25,17 +25,20 @@ class AuthRemoteData {
     }
   }
 
-  Future<UserModel> register(UserModel userModel, String password) async {
-    final response = await dio.post('/user/register/', data: {
-      ...userModel.toJson(),
-      'password': password,
-      'password1': password,
-    });
+  Future<void> register(UserModel userModel, String password) async {
+    final response = await dio.post(
+      '/user/registration/',
+      data: {
+        'email': userModel.email,
+        'username': userModel.email,
+        'first_name': userModel.username,
+        'last_name': userModel.username,
+        'password': password,
+        'password1': password,
+      },
+    );
 
-    if (response.statusCode == 201) {
-      String cookie = Cookie.fromSetCookieValue(response.headers['set-cookie']![0]).name;
-      return userModel..crsfToken = cookie;
-    } else {
+    if (response.statusCode != 201) {
       throw Exception('Failed to register ${response.data}');
     }
   }

@@ -23,15 +23,17 @@ class AuthCubit extends Cubit<AuthCubitState> {
   }
 
   // register
-  Future<void> register(UserModel userModel, String password) async {
+  Future<bool> register(UserModel userModel, String password) async {
     emit(state.copyWith(status: AuthStatus.loading));
     try {
       // call remote data
       await authRepository.register(userModel, password);
       // cache user
       emit(state.copyWith(status: AuthStatus.authenticated));
+      return true;
     } catch (e) {
       emit(state.copyWith(status: AuthStatus.error, message: e.toString()));
+      return false;
     }
   }
 
@@ -46,5 +48,10 @@ class AuthCubit extends Cubit<AuthCubitState> {
     } catch (e) {
       emit(state.copyWith(status: AuthStatus.error, message: e.toString()));
     }
+  }
+
+  // reset
+  Future<void> reset() async {
+    emit(state.copyWith(status: AuthStatus.initial));
   }
 }
