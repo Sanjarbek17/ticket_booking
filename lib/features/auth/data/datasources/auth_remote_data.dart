@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:ticket_booking/features/auth/data/models/user_model.dart';
+
+import '../../../../injection_container.dart';
 
 class AuthRemoteData {
   final Dio dio;
@@ -14,7 +18,7 @@ class AuthRemoteData {
         'password': password,
       },
     );
-
+    sl<Dio>().options.headers['X-CSRFToken'] = Cookie.fromSetCookieValue(response.headers['set-cookie']!.first).value;
     if (response.statusCode != 200) {
       throw Exception('Failed to login ${response.data}');
     }
@@ -32,7 +36,7 @@ class AuthRemoteData {
         'password1': password,
       },
     );
-
+    sl<Dio>().options.headers['X-CSRFToken'] = Cookie.fromSetCookieValue(response.headers['set-cookie']!.first).value;
     if (response.statusCode != 201) {
       throw Exception('Failed to register ${response.data}');
     }

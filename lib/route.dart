@@ -17,7 +17,9 @@ class AppRouter {
   // home
   static const String homeRoute = '/home';
   static const String homeDetailsRoute = '/home/details';
-  static const String homeSavedRoute = '/home/saved';
+  static const String homeSavedRoute = '/saved';
+  static const String homeSavedDetailsRoute = '/saved/details';
+
 
   static GoRouter router = GoRouter(
     debugLogDiagnostics: true,
@@ -29,28 +31,40 @@ class AppRouter {
         routes: [
           GoRoute(
             path: 'login',
+            name: 'login',
             builder: (context, state) => const LoginPage(),
           ),
           GoRoute(
             path: 'register',
+            name: 'register',
             builder: (context, state) => const RegisterPage(),
           ),
         ],
       ),
       ShellRoute(
-        builder: (context, state, child) => ScaffoldWithNavbar(child: child),
+        builder: (context, state, child) => ScaffoldWithNavbar(state: state, child: child),
         routes: [
           GoRoute(
             path: '/home',
+            name: 'home',
             builder: (context, state) => const HomePage(),
             routes: [
               GoRoute(
                 path: 'details',
+                name: 'homeDetails',
                 builder: (context, state) => const DetailsPage(),
               ),
+            ],
+          ),
+          GoRoute(
+            path: '/saved',
+            name: 'saved',
+            builder: (context, state) => const SavedEvents(),
+            routes: [
               GoRoute(
-                path: 'saved',
-                builder: (context, state) => const SavedEvents(),
+                path: 'details',
+                name: 'savedDetails',
+                builder: (context, state) => const DetailsPage(),
               ),
             ],
           ),
