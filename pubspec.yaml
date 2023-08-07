@@ -44,6 +44,9 @@ dependencies:
   bloc: ^8.1.2
   get_it: ^7.6.0
   cookie_jar: ^4.0.8
+  google_nav_bar: ^5.0.6
+  carousel_slider: ^4.2.1
+  collection: ^1.17.1
 
 dev_dependencies:
   flutter_test:

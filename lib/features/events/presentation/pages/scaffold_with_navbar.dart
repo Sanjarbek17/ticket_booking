@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 
 class ScaffoldWithNavbar extends StatelessWidget {
   final Widget child;
@@ -7,18 +8,16 @@ class ScaffoldWithNavbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Home Page'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.of(context).pushNamed('/home/saved');
-            },
-            icon: const Icon(Icons.favorite),
-          ),
+      body: child,
+      bottomNavigationBar: const GNav(
+        tabBorderRadius: 14,
+        tabs: [
+          GButton(icon: Icons.home),
+          GButton(icon: Icons.bookmark),
+          GButton(icon: Icons.book_online),
+          GButton(icon: Icons.notifications),
         ],
       ),
-      body: child,
     );
   }
 }
