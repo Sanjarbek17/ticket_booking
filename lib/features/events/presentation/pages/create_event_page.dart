@@ -118,7 +118,7 @@ class _CreateEventPageState extends State<CreateEventPage> {
                           ],
                         ),
                         const SizedBox(height: 20),
-                        const CustomTextField(text: 'Place'),
+                        const CustomTextField(text: 'Place of Event'),
                         const SizedBox(height: 20),
                         const Row(
                           children: [
