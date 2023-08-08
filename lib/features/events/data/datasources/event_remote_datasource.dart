@@ -6,7 +6,7 @@ class EventRemoteDatasource {
 
   EventRemoteDatasource({required this.dio});
 
-  /// CReate a new event
+  /// Create a new event
   Future<EventModel> createEvent(EventModel event) async {
     final response = await dio.post(
       '/events/create/',
