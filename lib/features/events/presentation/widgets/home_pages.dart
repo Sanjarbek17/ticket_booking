@@ -1,46 +1,67 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../../../route.dart';
+import '../event_bloc/event_bloc.dart';
 import 'custom_carousel.dart';
 import 'custom_list_builder.dart';
 import 'custom_search_bar.dart';
 import 'topics_widget.dart';
 
-class FirstPageHome extends StatelessWidget {
+class FirstPageHome extends StatefulWidget {
   const FirstPageHome({
     super.key,
-    required this.imgPaths,
   });
 
-  final List<String> imgPaths;
+  @override
+  State<FirstPageHome> createState() => _FirstPageHomeState();
+}
 
+class _FirstPageHomeState extends State<FirstPageHome> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const CustomSearchBar(),
-        const SizedBox(height: 20.0),
-        Expanded(
-          flex: 3,
-          child: CustomCarousel(
-            height: 150,
-            viewPort: 0.32,
-            imgPaths: imgPaths,
-            child: EnumCarouselChild.small,
-          ),
-        ),
-        Expanded(
-          flex: 7,
-          child: CustomCarousel(
-            height: 320,
-            viewPort: 0.72,
-            child: EnumCarouselChild.big,
-            imgPaths: imgPaths,
-          ),
-        ),
-        const SizedBox(height: 20.0),
-      ],
+    return BlocBuilder<EventBloc, EventState>(
+      builder: (context, state) {
+        if (state is EventInitial) {
+          BlocProvider.of<EventBloc>(context).add(GetAllEventsEvent());
+        }
+        if (state is EventLoading) {
+          // TODO: Add shimmer effect
+          return const Center(child: CircularProgressIndicator());
+        }
+        if (state is EventError) {
+          return Center(child: Text(state.message));
+        }
+        if (state is EventLoaded) {
+          return Column(
+            children: [
+              const CustomSearchBar(),
+              const SizedBox(height: 20.0),
+              Expanded(
+                flex: 3,
+                child: CustomCarousel(
+                  height: 150,
+                  viewPort: 0.32,
+                  eventModels: state.events,
+                  child: EnumCarouselChild.small,
+                ),
+              ),
+              Expanded(
+                flex: 7,
+                child: CustomCarousel(
+                  height: 320,
+                  viewPort: 0.72,
+                  child: EnumCarouselChild.big,
+                  eventModels: state.events,
+                ),
+              ),
+              const SizedBox(height: 20.0),
+            ],
+          );
+        }
+        return const SizedBox();
+      },
     );
   }
 }
@@ -48,10 +69,10 @@ class FirstPageHome extends StatelessWidget {
 class SecondPageHome extends StatelessWidget {
   const SecondPageHome({
     super.key,
-    required this.imgPaths,
+    required this.eventModels,
   });
 
-  final List<String> imgPaths;
+  final List<String> eventModels;
   static const List<String> topics = [
     'Science',
     'Information Technology',

@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:ticket_booking/features/events/data/models/event_model.dart';
 import 'package:ticket_booking/features/events/presentation/widgets/big_custom_carousel.dart';
 import 'package:ticket_booking/features/events/presentation/widgets/small_custom_carousel.dart';
 
@@ -9,14 +10,14 @@ enum EnumCarouselChild { small, big }
 class CustomCarousel extends StatefulWidget {
   final double height;
   final double viewPort;
-  final List<String> imgPaths;
+  final List<EventModel> eventModels;
   final EnumCarouselChild child;
   const CustomCarousel({
     super.key,
     required this.height,
     required this.viewPort,
     required this.child,
-    required this.imgPaths,
+    required this.eventModels,
   });
 
   @override
@@ -37,15 +38,15 @@ class _CustomCarouselState extends State<CustomCarousel> {
         viewportFraction: widget.viewPort,
         enlargeCenterPage: true,
       ),
-      items: widget.imgPaths
+      items: widget.eventModels
           .mapIndexed(
-            (index, imgPath) => widget.child == EnumCarouselChild.small
+            (index, eventModel) => widget.child == EnumCarouselChild.small
                 ? CarouselChild(
-                    imgPath: imgPath,
+                    eventModel: eventModel,
                     isSelected: index == currentIndex,
                   )
                 : CarouselChildBig(
-                    imgPath: imgPath,
+                    eventModel: eventModel,
                     isSelected: index == currentIndex,
                   ),
           )

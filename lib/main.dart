@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ticket_booking/features/auth/presentation/auth_cubit/auth_cubit.dart';
 import 'package:ticket_booking/route.dart';
 
+import 'features/events/presentation/event_bloc/event_bloc.dart';
 import 'injection_container.dart';
 
 void main() {
@@ -20,6 +21,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider<AuthCubit>(
           create: (_) => sl<AuthCubit>(),
+        ),
+        BlocProvider<EventBloc>(
+          create: (_) => sl<EventBloc>(),
         ),
       ],
       child: MaterialApp.router(

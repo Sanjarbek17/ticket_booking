@@ -10,8 +10,8 @@ class HomePage extends StatelessWidget {
   ];
 
   static const List<Widget> pages = [
-    FirstPageHome(imgPaths: imgPaths),
-    SecondPageHome(imgPaths: imgPaths),
+    FirstPageHome(),
+    SecondPageHome(eventModels: imgPaths),
   ];
 
   const HomePage({super.key});
@@ -24,7 +24,6 @@ class HomePage extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0.0,
-        // leading: IconButton(onPressed: () {}, icon: const Icon(Icons.sort)),
         actions: [
           const Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -36,7 +35,7 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      body: pages[1],
+      body: pages[0],
     );
   }
 }

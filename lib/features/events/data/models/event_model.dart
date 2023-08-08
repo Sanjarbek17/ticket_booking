@@ -11,7 +11,7 @@ const currencyMap = {
 };
 
 class EventModel {
-  final String? id;
+  final int? id;
   final String name;
   final String topic;
   final DateTime date;
@@ -36,6 +36,7 @@ class EventModel {
   });
 
   factory EventModel.fromJson(Map<String, dynamic> json) {
+    print(json);
     return EventModel(
       id: json['id'],
       name: json['name'],
