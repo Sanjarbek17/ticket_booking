@@ -1,5 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
+import 'package:dio/dio.dart';
+
 enum Currency { USD, UZS, PLN, RUB }
 
 // currency as map
@@ -8,6 +10,14 @@ const currencyMap = {
   Currency.UZS: 'UZS',
   Currency.PLN: 'PLN',
   Currency.RUB: 'RUB',
+};
+
+// reverse currency map
+const currencyMapReverse = {
+  'USD': Currency.USD,
+  'UZS': Currency.UZS,
+  'PLN': Currency.PLN,
+  'RUB': Currency.RUB,
 };
 
 class EventModel {
@@ -51,7 +61,7 @@ class EventModel {
     );
   }
 
-  Map<String, dynamic> toJson() {
+  Future<Map<String, dynamic>> toJson() async {
     return {
       'id': id ?? '1',
       'name': name,
@@ -61,7 +71,7 @@ class EventModel {
       'number_of_seats': numberOfSeats,
       'ticket_price': ticketPrice,
       'currency': currencyMap[currency],
-      'thumbnail': thumbnail,
+      'thumbnail':thumbnail.startsWith('http') ? thumbnail : [await MultipartFile.fromFile(thumbnail)],
       'description': description,
     };
   }

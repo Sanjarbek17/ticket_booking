@@ -3,6 +3,8 @@ part of 'event_bloc.dart';
 @immutable
 sealed class EventEvent {}
 
+class InitialEventEvent extends EventEvent {}
+
 class GetAllEventsEvent extends EventEvent {}
 
 class GetEventByIdEvent extends EventEvent {

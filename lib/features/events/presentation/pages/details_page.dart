@@ -13,7 +13,7 @@ class DetailsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<EventBloc, EventState>(
       builder: (context, state) {
-        if (state is EventLoaded) {
+        if (state is EventLoadedState) {
           if (state.event == null) {
             context.read<EventBloc>().add(GetEventByIdEvent(id));
             return const Center(child: CircularProgressIndicator());
@@ -99,7 +99,7 @@ class DetailsPage extends StatelessWidget {
               ),
             ),
           );
-        } else if (state is EventError) {
+        } else if (state is EventErrorState) {
           return const Text('Error');
         } else {
           return const Text('Error');

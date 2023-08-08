@@ -1,9 +1,12 @@
+import 'dart:io';
+
 class UserModel {
   final String? firstName;
   final String? lastName;
   final String email;
   final String? username;
-  String? crsfToken;
+  Cookie? crsfToken;
+  String? setCookie;
 
   UserModel({
     this.firstName,
@@ -11,6 +14,7 @@ class UserModel {
     required this.email,
     this.username,
     this.crsfToken,
+    this.setCookie,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
@@ -19,7 +23,6 @@ class UserModel {
       lastName: json['last_name'],
       email: json['email'],
       username: json['username'],
-      crsfToken: json['crsfToken'],
     );
   }
 
@@ -29,7 +32,8 @@ class UserModel {
       'last_name': lastName,
       'email': email,
       'username': username,
-      'crsfToken': crsfToken,
+      'crsfToken': crsfToken?.toString(),
+      'setCookie': setCookie,
     };
   }
 }

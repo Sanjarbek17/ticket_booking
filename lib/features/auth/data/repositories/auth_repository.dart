@@ -11,10 +11,22 @@ class AuthRepository {
     required this.authLocalData,
   });
 
+  // clear cache
+  Future<void> clearCache() async {
+    await authLocalData.clearCache();
+  }
+
+  // get cached user
+  Future<UserModel> getCachedUser() async {
+    return await authLocalData.getCachedUser();
+  }
+
   // login
   Future<void> login(String email, String password) async {
     // call remote data
-    await authRemoteData.login(email, password);
+    UserModel userModel = await authRemoteData.login(email, password);
+    // cache user
+    await authLocalData.cacheUser(userModel);
   }
 
   // register

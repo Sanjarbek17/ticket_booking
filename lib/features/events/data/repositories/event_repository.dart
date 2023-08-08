@@ -25,10 +25,10 @@ class EventRepository {
   }
 
   /// Create a new event and save it to local storage
-  Future<EventModel> createEvent(EventModel event) async {
+  Future<void> createEvent(EventModel event) async {
     final newEvent = await eventRemoteDatasource.createEvent(event);
     await eventLocalDatasource.createEvent(newEvent.toJson().toString());
-    return newEvent;
+    // return newEvent;
   }
 
   /// update event by id and save it to local storage

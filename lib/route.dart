@@ -1,3 +1,4 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ticket_booking/features/auth/presentation/pages/main_page.dart';
 import 'package:ticket_booking/features/events/presentation/pages/create_event_page.dart';
@@ -5,6 +6,7 @@ import 'package:ticket_booking/features/events/presentation/pages/details_page.d
 import 'package:ticket_booking/features/events/presentation/pages/scaffold_with_navbar.dart';
 import 'package:ticket_booking/features/events/presentation/pages/saved_events_page.dart';
 
+import 'features/auth/presentation/auth_cubit/auth_cubit.dart';
 import 'features/auth/presentation/pages/login_page.dart';
 import 'features/auth/presentation/pages/register_page.dart';
 import 'features/events/presentation/pages/home_page.dart';
@@ -23,7 +25,7 @@ class AppRouter {
 
   static GoRouter router = GoRouter(
     debugLogDiagnostics: true,
-    initialLocation: homeRoute,
+    initialLocation: initialRoute,
     routes: [
       GoRoute(
         path: initialRoute,
@@ -80,19 +82,27 @@ class AppRouter {
         ],
       ),
     ],
-    // redirect: (BuildContext context, GoRouterState state) {
-    //   // final bool loggedIn = loginCubit.state.status == AuthStatus.authenticated;
-    //   // final bool loggingIn = state.subloc == '/login';
-    //   // print(state.uri);
-    //   const bool loggedIn = 5 == 5;
-    //   const bool loggingIn = 4 == 4;
-    //   if (!loggedIn) {
-    //     return loggingIn ? null : '/login';
-    //   }
-    //   if (loggingIn) {
-    //     return '/';
-    //   }
-    //   return null;
-    // },
+    redirect: (context, state) async {
+      AuthCubit authCubit = context.read<AuthCubit>();
+      final bool loggedIn = authCubit.state.status == AuthStatus.authenticated;
+
+      final bool loggingIn = state.fullPath == '/login' || state.fullPath == '/register';
+      print(state.uri);
+      if (!loggedIn) {
+        bool value = await authCubit.isLogged();
+        if (value) {
+          print('redirect to home');
+          return '/home';
+        } else {
+          print('redirect to login');
+          return loggingIn ? null : '/login';
+        }
+      } else if (loggedIn) {
+        print('redirect to login');
+        return null;
+      }
+      print('outside');
+      return null;
+    },
   );
 }

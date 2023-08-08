@@ -3,43 +3,39 @@ part of 'event_bloc.dart';
 @immutable
 sealed class EventState {}
 
-final class EventInitial extends EventState {}
+final class EventInitialState extends EventState {}
 
-final class EventLoading extends EventState {}
+final class EventLoadingState extends EventState {}
 
-final class EventLoaded extends EventState {
+final class EventLoadedState extends EventState {
   final List<EventModel> events;
   final EventModel? event;
 
-  EventLoaded({required this.events, this.event});
+  EventLoadedState({required this.events, this.event});
 }
 
-final class EventError extends EventState {
+final class EventErrorState extends EventState {
   final String message;
 
-  EventError(this.message);
+  EventErrorState(this.message);
 }
 
-final class EventCreated extends EventState {
+final class EventCreatedState extends EventState {}
+
+final class EventUpdatedState extends EventState {
   final EventModel event;
 
-  EventCreated(this.event);
+  EventUpdatedState(this.event);
 }
 
-final class EventUpdated extends EventState {
-  final EventModel event;
-
-  EventUpdated(this.event);
-}
-
-final class EventDeleted extends EventState {
+final class EventDeletedState extends EventState {
   final String id;
 
-  EventDeleted(this.id);
+  EventDeletedState(this.id);
 }
 
-final class EventSearched extends EventState {
+final class EventSearchedState extends EventState {
   final List<EventModel> events;
 
-  EventSearched(this.events);
+  EventSearchedState(this.events);
 }

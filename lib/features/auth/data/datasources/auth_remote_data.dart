@@ -10,7 +10,7 @@ class AuthRemoteData {
 
   AuthRemoteData({required this.dio});
 
-  Future<void> login(String email, String password) async {
+  Future<UserModel> login(String email, String password) async {
     final response = await dio.post(
       '/user/login/',
       data: {
@@ -18,13 +18,20 @@ class AuthRemoteData {
         'password': password,
       },
     );
-    sl<Dio>().options.headers['X-CSRFToken'] = Cookie.fromSetCookieValue(response.headers['set-cookie']!.first).value;
+
+    var cookie = response.headers['set-cookie'];
+    sl<Dio>().options.headers['X-CSRFToken'] = Cookie.fromSetCookieValue(cookie!.first).value;
     if (response.statusCode != 200) {
       throw Exception('Failed to login ${response.data}');
     }
+    return UserModel(
+      email: email,
+      crsfToken: Cookie.fromSetCookieValue(cookie.first),
+      setCookie: "csrftoken=${Cookie.fromSetCookieValue(cookie.first).value}; sessionid=${Cookie.fromSetCookieValue(cookie.last).value}",
+    );
   }
 
-  Future<void> register(UserModel userModel, String password) async {
+  Future<UserModel> register(UserModel userModel, String password) async {
     final response = await dio.post(
       '/user/registration/',
       data: {
@@ -36,10 +43,15 @@ class AuthRemoteData {
         'password1': password,
       },
     );
-    sl<Dio>().options.headers['X-CSRFToken'] = Cookie.fromSetCookieValue(response.headers['set-cookie']!.first).value;
+    var cookie = response.headers['set-cookie'];
+    sl<Dio>().options.headers['X-CSRFToken'] = Cookie.fromSetCookieValue(cookie!.first).value;
     if (response.statusCode != 201) {
       throw Exception('Failed to register ${response.data}');
     }
+
+    return userModel
+      ..crsfToken = Cookie.fromSetCookieValue(cookie.first)
+      ..setCookie = "csrftoken=${Cookie.fromSetCookieValue(cookie.first).value}; sessionid=${Cookie.fromSetCookieValue(cookie.last).value}";
   }
 
   Future<UserModel> logout(UserModel userModel) async {
@@ -51,7 +63,9 @@ class AuthRemoteData {
     );
 
     if (response.statusCode == 200) {
-      return userModel..crsfToken = '';
+      return userModel
+        ..crsfToken = null
+        ..setCookie = null;
     } else {
       throw Exception('Failed to logout ${response.data}');
     }

@@ -10,7 +10,7 @@ class EventRemoteDatasource {
   Future<EventModel> createEvent(EventModel event) async {
     final response = await dio.post(
       '/events/create/',
-      data: event.toJson(),
+      data: FormData.fromMap(await event.toJson()),
     );
     return EventModel.fromJson(response.data);
   }

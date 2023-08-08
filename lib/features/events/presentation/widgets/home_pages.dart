@@ -22,17 +22,17 @@ class _FirstPageHomeState extends State<FirstPageHome> {
   Widget build(BuildContext context) {
     return BlocBuilder<EventBloc, EventState>(
       builder: (context, state) {
-        if (state is EventInitial) {
+        if (state is EventInitialState) {
           BlocProvider.of<EventBloc>(context).add(GetAllEventsEvent());
         }
-        if (state is EventLoading) {
+        if (state is EventLoadingState) {
           // TODO: Add shimmer effect
           return const Center(child: CircularProgressIndicator());
         }
-        if (state is EventError) {
+        if (state is EventErrorState) {
           return Center(child: Text(state.message));
         }
-        if (state is EventLoaded) {
+        if (state is EventLoadedState) {
           return Column(
             children: [
               const SizedBox(height: 20.0),

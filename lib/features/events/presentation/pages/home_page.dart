@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../auth/presentation/auth_cubit/auth_cubit.dart';
 import '../widgets/custom_search_bar.dart';
 import '../widgets/home_pages.dart';
 
@@ -38,7 +40,10 @@ class _HomePageState extends State<HomePage> {
           ),
           IconButton(
             icon: const Icon(Icons.account_circle),
-            onPressed: () {},
+            onPressed: () {
+              // clear cache
+              context.read<AuthCubit>().clearCache();
+            },
           ),
         ],
       ),

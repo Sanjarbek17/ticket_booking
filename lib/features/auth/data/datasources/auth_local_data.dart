@@ -8,6 +8,11 @@ class AuthLocalData {
 
   AuthLocalData({required this.sharedPreferences});
 
+  // clear cache
+  Future<void> clearCache() async {
+    await sharedPreferences.clear();
+  }
+
   // cache user
   Future<void> cacheUser(UserModel userModel) async {
     await sharedPreferences.setString('user', jsonEncode(userModel.toJson()));
@@ -16,6 +21,7 @@ class AuthLocalData {
   // get cached user
   Future<UserModel> getCachedUser() async {
     String? user = sharedPreferences.getString('user');
+    print(user);
     if (user != null) {
       return UserModel.fromJson(jsonDecode(user));
     } else {

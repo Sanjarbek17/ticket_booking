@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 
+import '../../../../injection_container.dart';
 import '../../data/models/user_model.dart';
 import '../../data/repositories/auth_repository.dart';
 
@@ -8,6 +10,31 @@ part 'auth_state.dart';
 class AuthCubit extends Cubit<AuthCubitState> {
   final AuthRepository authRepository;
   AuthCubit({required this.authRepository}) : super(AuthCubitState());
+
+  UserModel? userModel;
+
+  // clear cache
+  Future<void> clearCache() async {
+    await authRepository.clearCache();
+    emit(state.copyWith(status: AuthStatus.initial));
+  }
+
+  Future<bool> isLogged() async {
+    print('logged');
+    try {
+      userModel = await authRepository.getCachedUser();
+      print(userModel);
+      sl<Dio>().options.headers['X-CSRFToken'] = userModel!.crsfToken;
+      sl<Dio>().options.headers['Cookie'] = userModel!.setCookie;
+
+      emit(state.copyWith(status: AuthStatus.authenticated));
+      return true;
+    } catch (e) {
+      print('error $e');
+      emit(state.copyWith(status: AuthStatus.initial));
+      return false;
+    }
+  }
 
   // login
   Future<bool> login(String email, String password) async {
