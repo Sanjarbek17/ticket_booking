@@ -6,9 +6,9 @@ import 'package:ticket_booking/route.dart';
 import 'features/events/presentation/event_bloc/event_bloc.dart';
 import 'injection_container.dart';
 
-void main() {
+void main()async {
   WidgetsFlutterBinding.ensureInitialized();
-  init();
+   await init();
   runApp(const MyApp());
 }
 
