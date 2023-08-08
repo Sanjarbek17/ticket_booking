@@ -49,6 +49,7 @@ dependencies:
   collection: ^1.17.1
   flutter_markdown: ^0.6.17
   meta: ^1.9.1
+  intl: ^0.18.1
 
 dev_dependencies:
   flutter_test:

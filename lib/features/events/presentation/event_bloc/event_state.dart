@@ -9,8 +9,9 @@ final class EventLoading extends EventState {}
 
 final class EventLoaded extends EventState {
   final List<EventModel> events;
+  final EventModel? event;
 
-  EventLoaded(this.events);
+  EventLoaded({required this.events, this.event});
 }
 
 final class EventError extends EventState {

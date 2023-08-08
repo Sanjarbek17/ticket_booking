@@ -15,10 +15,18 @@ class EventBloc extends Bloc<EventEvent, EventState> {
       emit(EventLoading());
       try {
         final events = await eventRepository.getAllEvents();
-        emit(EventLoaded(events));
+        emit(EventLoaded(events: events));
       } catch (e) {
         emit(EventError(e.toString()));
       }
+    });
+
+    on<GetEventByIdEvent>((event, emit) async {
+      final events = (state as EventLoaded).events;
+      print(events);
+      final eventModel = events.firstWhere((element) => element.id == event.id);
+      print(eventModel.toJson());
+      emit(EventLoaded(events: events, event: eventModel));
     });
 
     on<SearchEventsEvent>((event, emit) async {

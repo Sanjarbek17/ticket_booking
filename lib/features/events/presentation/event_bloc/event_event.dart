@@ -5,6 +5,12 @@ sealed class EventEvent {}
 
 class GetAllEventsEvent extends EventEvent {}
 
+class GetEventByIdEvent extends EventEvent {
+  final int? id;
+
+  GetEventByIdEvent(this.id);
+}
+
 class SearchEventsEvent extends EventEvent {
   final String query;
 
