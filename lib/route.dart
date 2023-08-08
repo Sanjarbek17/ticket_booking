@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:ticket_booking/features/auth/presentation/pages/main_page.dart';
+import 'package:ticket_booking/features/events/presentation/pages/create_event_page.dart';
 import 'package:ticket_booking/features/events/presentation/pages/details_page.dart';
 import 'package:ticket_booking/features/events/presentation/pages/scaffold_with_navbar.dart';
 import 'package:ticket_booking/features/events/presentation/pages/saved_events_page.dart';
@@ -70,6 +71,11 @@ class AppRouter {
                 ),
               ),
             ],
+          ),
+          GoRoute(
+            path: '/create_event',
+            name: 'createEvent',
+            builder: (context, state) => const CreateEventPage(),
           ),
         ],
       ),

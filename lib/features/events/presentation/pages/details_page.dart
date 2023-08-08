@@ -5,19 +5,9 @@ import 'package:intl/intl.dart';
 
 import '../event_bloc/event_bloc.dart';
 
-class DetailsPage extends StatefulWidget {
+class DetailsPage extends StatelessWidget {
   final int id;
   const DetailsPage({super.key, required this.id});
-
-  @override
-  State<DetailsPage> createState() => _DetailsPageState();
-}
-
-class _DetailsPageState extends State<DetailsPage> {
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +15,8 @@ class _DetailsPageState extends State<DetailsPage> {
       builder: (context, state) {
         if (state is EventLoaded) {
           if (state.event == null) {
-            context.read<EventBloc>().add(GetEventByIdEvent(widget.id));
+            context.read<EventBloc>().add(GetEventByIdEvent(id));
+            return const Center(child: CircularProgressIndicator());
           }
           return Container(
             decoration: const BoxDecoration(

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/custom_search_bar.dart';
 import '../widgets/home_pages.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   static const List<String> imgPaths = [
     'assets/images/bali1 1.png',
     'assets/images/third.png',
@@ -16,6 +17,12 @@ class HomePage extends StatelessWidget {
 
   const HomePage({super.key});
 
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +42,21 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-      body: pages[0],
+      body: Column(
+        children: [
+          CustomSearchBar(
+            searchController: searchController,
+            onChanged: (p0) => setState(() {
+              if (p0.isEmpty) {
+                searchController.clear();
+              }
+            }),
+          ),
+          Expanded(
+            child: searchController.text.isEmpty ? const FirstPageHome() : const SecondPageHome(eventModels: HomePage.imgPaths),
+          ),
+        ],
+      ),
     );
   }
 }

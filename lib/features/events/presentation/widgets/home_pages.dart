@@ -6,7 +6,6 @@ import '../../../../route.dart';
 import '../event_bloc/event_bloc.dart';
 import 'custom_carousel.dart';
 import 'custom_list_builder.dart';
-import 'custom_search_bar.dart';
 import 'topics_widget.dart';
 
 class FirstPageHome extends StatefulWidget {
@@ -36,7 +35,6 @@ class _FirstPageHomeState extends State<FirstPageHome> {
         if (state is EventLoaded) {
           return Column(
             children: [
-              const CustomSearchBar(),
               const SizedBox(height: 20.0),
               Expanded(
                 flex: 3,
@@ -85,7 +83,6 @@ class SecondPageHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const CustomSearchBar(),
         const SizedBox(height: 20.0),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,

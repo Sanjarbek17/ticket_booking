@@ -38,9 +38,9 @@ class ScaffoldWithNavbar extends StatelessWidget {
             },
           ),
           GButton(
-            icon: Icons.notifications,
+            icon: Icons.event,
             onPressed: () {
-              context.go('/notifications');
+              context.go('/create_event');
             },
           ),
         ],

@@ -5,9 +5,15 @@ import 'package:ticket_booking/features/events/presentation/widgets/custom_searc
 
 import '../../../../route.dart';
 
-class SavedEvents extends StatelessWidget {
+class SavedEvents extends StatefulWidget {
   const SavedEvents({super.key});
 
+  @override
+  State<SavedEvents> createState() => _SavedEventsState();
+}
+
+class _SavedEventsState extends State<SavedEvents> {
+  final TextEditingController searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,12 +22,12 @@ class SavedEvents extends StatelessWidget {
         elevation: 0.0,
         title: const Text('Saved Events'),
       ),
-      body:  Column(
+      body: Column(
         children: [
-          const CustomSearchBar(),
+          CustomSearchBar(searchController: searchController),
           const SizedBox(height: 20.0),
           CustomListBuilder(
-            onTap: () =>  context.go(AppRouter.homeSavedDetailsRoute),
+            onTap: () => context.go(AppRouter.homeSavedDetailsRoute),
           ),
         ],
       ),
