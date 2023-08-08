@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 
 class DetailsPage extends StatelessWidget {
-  const DetailsPage({super.key});
+  final int id;
+  const DetailsPage({super.key, required this.id});
 
   @override
   Widget build(BuildContext context) {

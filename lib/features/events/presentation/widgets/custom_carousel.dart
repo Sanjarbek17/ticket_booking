@@ -28,7 +28,6 @@ class _CustomCarouselState extends State<CustomCarousel> {
   int currentIndex = 0;
   @override
   Widget build(BuildContext context) {
-    print(widget.child);
     return CarouselSlider(
       options: CarouselOptions(
         clipBehavior: Clip.none,

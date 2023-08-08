@@ -20,7 +20,6 @@ class AppRouter {
   static const String homeSavedRoute = '/saved';
   static const String homeSavedDetailsRoute = '/saved/details';
 
-
   static GoRouter router = GoRouter(
     debugLogDiagnostics: true,
     initialLocation: homeRoute,
@@ -50,9 +49,11 @@ class AppRouter {
             builder: (context, state) => const HomePage(),
             routes: [
               GoRoute(
-                path: 'details',
+                path: 'details/:id',
                 name: 'homeDetails',
-                builder: (context, state) => const DetailsPage(),
+                builder: (context, state) => DetailsPage(
+                  id: int.parse(state.pathParameters['id'] ?? '0'),
+                ),
               ),
             ],
           ),
@@ -62,9 +63,11 @@ class AppRouter {
             builder: (context, state) => const SavedEvents(),
             routes: [
               GoRoute(
-                path: 'details',
+                path: 'details/:id',
                 name: 'savedDetails',
-                builder: (context, state) => const DetailsPage(),
+                builder: (context, state) => DetailsPage(
+                  id: int.parse(state.pathParameters['id'] ?? '0'),
+                ),
               ),
             ],
           ),
