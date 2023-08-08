@@ -27,9 +27,9 @@ class _CreateEventPageState extends State<CreateEventPage> {
         appBar: AppBar(
           title: const Text('Create Event', style: TextStyle(color: Colors.white)),
         ),
-        body: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8.0),
-          child: SingleChildScrollView(
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 8.0),
             child: SizedBox(
               height: MediaQuery.of(context).size.height,
               child: Column(
