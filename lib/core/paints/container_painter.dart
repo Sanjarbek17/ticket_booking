@@ -15,7 +15,7 @@ class ContainerPainter extends CustomPainter {
     // path3.arcTo(oval, startAngle, sweepAngle, false);
     // path3.arcToPoint(Offset(centerX + radius, startY), radius: Radius.circular(radius));
     path3.lineTo(width - 20, startY);
-    path3.quadraticBezierTo(width, startY, width, 20);
+    path3.quadraticBezierTo(width, startY, width, startY + 20);
     path3.lineTo(width, height - 20);
     path3.quadraticBezierTo(width, height, width - 20, height);
     path3.lineTo(centerX + radius, height);

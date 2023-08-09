@@ -16,7 +16,8 @@ class ReservationPage extends StatelessWidget {
       body: const Column(
         children: [
           CustomSearchBar(),
-          CustomResvBuilder(eventModel: [])
+          SizedBox(height: 20),
+          CustomResvBuilder(eventModel: []),
         ],
       ),
     );

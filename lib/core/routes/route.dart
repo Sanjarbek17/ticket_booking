@@ -105,7 +105,7 @@ class AppRouter {
           return '/home';
         } else {
           print('redirect to login');
-          return loggingIn ? null : '/login';
+          return loggingIn ? null : '/';
         }
       } else if (loggedIn) {
         print('redirect to login');
