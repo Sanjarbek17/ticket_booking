@@ -3,15 +3,18 @@ import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:ticket_booking/features/auth/data/repositories/auth_repository.dart';
-import 'package:ticket_booking/features/auth/presentation/auth_cubit/auth_cubit.dart';
-import 'package:ticket_booking/features/events/presentation/event_bloc/event_bloc.dart';
 
 import 'features/auth/data/datasources/auth_local_data.dart';
 import 'features/auth/data/datasources/auth_remote_data.dart';
+import 'features/auth/data/repositories/auth_repository.dart';
+import 'features/auth/presentation/auth_cubit/auth_cubit.dart';
 import 'features/events/data/datasources/event_local_datasource.dart';
 import 'features/events/data/datasources/event_remote_datasource.dart';
 import 'features/events/data/repositories/event_repository.dart';
+import 'features/events/presentation/event_bloc/event_bloc.dart';
+import 'features/reservation/data/datasources/reserv_remote_datasource.dart';
+import 'features/reservation/data/repositories/reserv_repository.dart';
+import 'features/reservation/presentation/bloc/reservation_bloc.dart';
 
 final sl = GetIt.instance;
 
@@ -24,6 +27,10 @@ Future<void> init() async {
 
   sl.registerFactory(
     () => EventBloc(eventRepository: sl()),
+  );
+
+  sl.registerFactory(
+    () => ReservationBloc(repository: sl()),
   );
 
   // Repository
@@ -41,6 +48,11 @@ Future<void> init() async {
     ),
   );
 
+  sl.registerLazySingleton<ReservRepository>(
+    () => ReservRepository(
+      reservRemoteDatasource: sl(),
+    ),
+  );
 
   // Data sources
   sl.registerLazySingleton<AuthLocalData>(
@@ -51,12 +63,16 @@ Future<void> init() async {
     () => AuthRemoteData(dio: sl()),
   );
 
-  sl.registerLazySingleton<EventLocalDatasource >(
-    () => EventLocalDatasource (sharedPreferences: sl()),
+  sl.registerLazySingleton<EventLocalDatasource>(
+    () => EventLocalDatasource(sharedPreferences: sl()),
   );
 
-  sl.registerLazySingleton<EventRemoteDatasource >(
-    () => EventRemoteDatasource (dio: sl()),
+  sl.registerLazySingleton<EventRemoteDatasource>(
+    () => EventRemoteDatasource(dio: sl()),
+  );
+
+  sl.registerLazySingleton<ReservRemoteDatasource>(
+    () => ReservRemoteDatasource(dio: sl()),
   );
 
   //! Core

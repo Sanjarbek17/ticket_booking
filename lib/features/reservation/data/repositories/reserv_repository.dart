@@ -1,3 +1,4 @@
+import 'package:ticket_booking/features/events/data/models/event_model.dart';
 import 'package:ticket_booking/features/reservation/data/datasources/reserv_remote_datasource.dart';
 import 'package:ticket_booking/features/reservation/data/models/reservation_model.dart';
 
@@ -7,7 +8,7 @@ class ReservRepository {
   ReservRepository({required this.reservRemoteDatasource});
 
   // get all reservations
-  Future<List<ReservationModel>> getAllReserv() async {
+  Future<List<EventModel>> getAllReserv() async {
     return await reservRemoteDatasource.getReservs();
   }
 

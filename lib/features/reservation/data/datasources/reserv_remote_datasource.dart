@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:ticket_booking/features/events/data/models/event_model.dart';
 import 'package:ticket_booking/features/reservation/data/models/reservation_model.dart';
 
 class ReservRemoteDatasource {
@@ -6,10 +7,18 @@ class ReservRemoteDatasource {
 
   ReservRemoteDatasource({required this.dio});
 
-  Future<List<ReservationModel>> getReservs() async {
+  /// Get all events
+  Future<List<EventModel>> getAllEvents() async {
+    final response = await dio.get('/events/all/');
+    return (response.data as List).map((e) => EventModel.fromJson(e)).toList();
+  }
+
+  Future<List<EventModel>> getReservs() async {
     final response = await dio.get('/reservations/all/');
+    final events = await getAllEvents();
     if (response.statusCode == 200) {
-      return response.data.map<ReservationModel>((json) => ReservationModel.fromJson(json)).toList();
+      final reservs = (response.data as List).map((e) => events.where((element) => element.id == e['id']).first).toList();
+      return reservs;
     } else {
       throw Exception('Error: ${response.data}');
     }

@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:ticket_booking/features/events/data/models/event_model.dart';
 import 'package:ticket_booking/features/reservation/data/models/reservation_model.dart';
 import 'package:ticket_booking/features/reservation/data/repositories/reserv_repository.dart';
 

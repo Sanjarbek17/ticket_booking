@@ -5,6 +5,7 @@ import '../../features/auth/presentation/auth_cubit/auth_cubit.dart';
 import '../../features/auth/presentation/pages/login_page.dart';
 import '../../features/auth/presentation/pages/main_page.dart';
 import '../../features/auth/presentation/pages/register_page.dart';
+import '../../features/events/data/models/event_model.dart';
 import '../../features/events/presentation/pages/create_event_page.dart';
 import '../../features/events/presentation/pages/details_page.dart';
 import '../../features/events/presentation/pages/home_page.dart';
@@ -94,10 +95,10 @@ class AppRouter {
             builder: (context, state) => const ReservationPage(),
             routes: [
               GoRoute(
-                path: 'checkout/:id',
+                path: 'checkout/',
                 name: 'checkout',
-                builder: (context, state) => const CheckOutPage(
-                    // id: int.parse(state.pathParameters['id'] ?? '0'),
+                builder: (context, state) =>  CheckOutPage(
+                    eventModel: state.extra as EventModel,
                     ),
               ),
             ],

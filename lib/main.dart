@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ticket_booking/features/auth/presentation/auth_cubit/auth_cubit.dart';
 import 'package:ticket_booking/core/routes/route.dart';
+import 'package:ticket_booking/features/reservation/presentation/bloc/reservation_bloc.dart';
 
 import 'features/events/presentation/event_bloc/event_bloc.dart';
 import 'injection_container.dart';
 
-void main()async {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-   await init();
+  await init();
   runApp(const MyApp());
 }
 
@@ -25,10 +26,13 @@ class MyApp extends StatelessWidget {
         BlocProvider<EventBloc>(
           create: (_) => sl<EventBloc>(),
         ),
+        BlocProvider(
+          create: (_) => sl<ReservationBloc>(),
+        ),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
+        title: 'Ticket Booking',
         theme: ThemeData(
           primarySwatch: const MaterialColor(
             0xFFFEA400,
