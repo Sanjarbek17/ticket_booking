@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:ticket_booking/core/paints/container_painter.dart';
 
 import '../../../../core/paints/dashed_line_painter.dart';
+import '../../../../core/routes/route.dart';
 import '../../../events/data/models/event_model.dart';
 import 'custom_list_tile.dart';
 
@@ -34,7 +36,7 @@ class CustomCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // context.go(AppRouter.homeFuncDetailsRoute(eventModel.id ?? 0));
+        context.go(AppRouter.reservationFuncCheckRoute(0));
       },
       child: CustomPaint(
         painter: ContainerPainter(),

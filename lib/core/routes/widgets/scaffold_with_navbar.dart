@@ -10,10 +10,6 @@ class ScaffoldWithNavbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('ScaffoldWithNavbar: ${state.fullPath} $state');
-    if (state.fullPath == AppRouter.homeDetailsRoute || state.fullPath == AppRouter.homeSavedDetailsRoute) {
-      return child;
-    }
     return Scaffold(
       body: child,
       bottomNavigationBar: GNav(
@@ -22,7 +18,7 @@ class ScaffoldWithNavbar extends StatelessWidget {
           GButton(
             icon: Icons.home,
             onPressed: () {
-              context.go('/home');
+              context.go(AppRouter.homeRoute);
             },
           ),
           GButton(
@@ -34,13 +30,13 @@ class ScaffoldWithNavbar extends StatelessWidget {
           GButton(
             icon: Icons.book_online,
             onPressed: () {
-              context.go('/reservation');
+              context.go(AppRouter.reservationRoute);
             },
           ),
           GButton(
             icon: Icons.event,
             onPressed: () {
-              context.go('/create_event');
+              context.go(AppRouter.createEventRoute);
             },
           ),
         ],
