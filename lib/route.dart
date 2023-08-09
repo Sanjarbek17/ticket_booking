@@ -20,6 +20,7 @@ class AppRouter {
   // home
   static const String homeRoute = '/home';
   static const String homeDetailsRoute = '/home/details';
+  static String Function(int) homeFuncDetailsRoute = (int id) => '/home/details/$id';
   static const String homeSavedRoute = '/saved';
   static const String homeSavedDetailsRoute = '/saved/details';
 

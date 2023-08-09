@@ -21,7 +21,7 @@ class CarouselChildBig extends StatelessWidget {
           image: DecorationImage(
             image: NetworkImage(eventModel.thumbnail),
             fit: BoxFit.cover,
-            colorFilter: !isSelected ? ColorFilter.mode(Colors.white.withOpacity(0.7), BlendMode.colorDodge) : null,
+            colorFilter: !isSelected ? ColorFilter.mode(Colors.black.withOpacity(0.7), BlendMode.darken) : null,
           ),
         ),
         child: Column(

@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:ticket_booking/features/events/presentation/widgets/custom_list_builder.dart';
-import 'package:ticket_booking/features/events/presentation/widgets/custom_search_bar.dart';
 
-import '../../../../route.dart';
+import '../widgets/custom_search_bar.dart';
 
 class SavedEvents extends StatefulWidget {
   const SavedEvents({super.key});
@@ -26,9 +23,17 @@ class _SavedEventsState extends State<SavedEvents> {
         children: [
           CustomSearchBar(searchController: searchController),
           const SizedBox(height: 20.0),
-          CustomListBuilder(
-            onTap: () => context.go(AppRouter.homeSavedDetailsRoute),
-          ),
+          const Expanded(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('No Saved Events'),
+              ],
+            ),
+          )
+          // const CustomListBuilder(
+          //   eventModel: [],
+          // ),
         ],
       ),
     );

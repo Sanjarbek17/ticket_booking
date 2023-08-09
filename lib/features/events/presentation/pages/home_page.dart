@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../auth/presentation/auth_cubit/auth_cubit.dart';
+import '../event_bloc/event_bloc.dart';
 import '../widgets/custom_search_bar.dart';
 import '../widgets/home_pages.dart';
 
@@ -14,7 +15,7 @@ class HomePage extends StatefulWidget {
 
   static const List<Widget> pages = [
     FirstPageHome(),
-    SecondPageHome(eventModels: imgPaths),
+    SecondPageHome(),
   ];
 
   const HomePage({super.key});
@@ -54,11 +55,16 @@ class _HomePageState extends State<HomePage> {
             onChanged: (p0) => setState(() {
               if (p0.isEmpty) {
                 searchController.clear();
+              } else {
+                context.read<EventBloc>().add(SearchEventsEvent(p0));
               }
             }),
+            onSubmitted: (p0) {
+              context.read<EventBloc>().add(SearchEventsEvent(p0));
+            },
           ),
           Expanded(
-            child: searchController.text.isEmpty ? const FirstPageHome() : const SecondPageHome(eventModels: HomePage.imgPaths),
+            child: searchController.text.isEmpty ? const FirstPageHome() : const SecondPageHome(),
           ),
         ],
       ),

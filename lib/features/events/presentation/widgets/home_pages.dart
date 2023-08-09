@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 
-import '../../../../route.dart';
 import '../event_bloc/event_bloc.dart';
 import 'custom_carousel.dart';
 import 'custom_list_builder.dart';
@@ -18,6 +16,13 @@ class FirstPageHome extends StatefulWidget {
 }
 
 class _FirstPageHomeState extends State<FirstPageHome> {
+  @override
+  void initState() {
+    super.initState();
+
+    context.read<EventBloc>().add(GetAllEventsEvent());
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<EventBloc, EventState>(
@@ -38,21 +43,11 @@ class _FirstPageHomeState extends State<FirstPageHome> {
               const SizedBox(height: 20.0),
               Expanded(
                 flex: 3,
-                child: CustomCarousel(
-                  height: 150,
-                  viewPort: 0.32,
-                  eventModels: state.events,
-                  child: EnumCarouselChild.small,
-                ),
+                child: CustomCarousel(height: 150, viewPort: 0.32, eventModels: state.events.getRange(0, state.events.length ~/ 2).toList(), child: EnumCarouselChild.small),
               ),
               Expanded(
                 flex: 7,
-                child: CustomCarousel(
-                  height: 320,
-                  viewPort: 0.72,
-                  child: EnumCarouselChild.big,
-                  eventModels: state.events,
-                ),
+                child: CustomCarousel(height: 320, viewPort: 0.72, child: EnumCarouselChild.big, eventModels: state.events.getRange(state.events.length ~/ 2, state.events.length).toList()),
               ),
               const SizedBox(height: 20.0),
             ],
@@ -67,10 +62,8 @@ class _FirstPageHomeState extends State<FirstPageHome> {
 class SecondPageHome extends StatelessWidget {
   const SecondPageHome({
     super.key,
-    required this.eventModels,
   });
 
-  final List<String> eventModels;
   static const List<String> topics = [
     'Science',
     'Information Technology',
@@ -81,33 +74,47 @@ class SecondPageHome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(height: 20.0),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
+    return BlocBuilder<EventBloc, EventState>(
+      builder: (context, state) {
+        if (state is EventLoadingState) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (state is EventErrorState) {
+          return Center(child: Text(state.message));
+        } else if (state is EventSearchedState) {
+          if (state.events.isEmpty) {
+            return const Center(child: Text('No events found'));
+          }
+          return Column(
             children: [
-              const ColorTopic(text: 'Topics', isColor: true),
-              Container(
-                height: 24,
-                decoration: BoxDecoration(
-                  border: Border.all(width: 0.70, color: const Color(0x4B0E0E0F)),
-                  borderRadius: BorderRadius.circular(6),
+              const SizedBox(height: 20.0),
+              SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    const ColorTopic(text: 'Topics', isColor: true),
+                    Container(
+                      height: 24,
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 0.70, color: const Color(0x4B0E0E0F)),
+                        borderRadius: BorderRadius.circular(6),
+                      ),
+                    ),
+                    ...List.generate(
+                      topics.length,
+                      (index) => ColorTopic(text: topics[index]),
+                    ),
+                  ],
                 ),
               ),
-              ...List.generate(
-                topics.length,
-                (index) => ColorTopic(text: topics[index]),
+              const SizedBox(height: 20.0),
+              CustomListBuilder(
+                eventModel: state.events,
               ),
             ],
-          ),
-        ),
-        const SizedBox(height: 20.0),
-        CustomListBuilder(
-          onTap: () => context.go(AppRouter.homeDetailsRoute),
-        ),
-      ],
+          );
+        }
+        return const SizedBox();
+      },
     );
   }
 }
