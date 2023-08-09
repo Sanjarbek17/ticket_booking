@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:ticket_booking/route.dart';
+import 'package:ticket_booking/core/routes/route.dart';
 
 import '../widgets/yellow_button.dart';
 

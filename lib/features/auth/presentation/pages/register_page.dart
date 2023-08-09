@@ -8,7 +8,7 @@ import 'package:ticket_booking/features/auth/presentation/widgets/bottom_text.da
 import 'package:ticket_booking/features/auth/presentation/widgets/custom_divider.dart';
 import 'package:ticket_booking/features/auth/presentation/widgets/triple_box_icon.dart';
 import 'package:ticket_booking/features/auth/presentation/widgets/yellow_button.dart';
-import 'package:ticket_booking/route.dart';
+import 'package:ticket_booking/core/routes/route.dart';
 
 import '../widgets/custom_back_icon.dart';
 import '../widgets/custom_form_field.dart';

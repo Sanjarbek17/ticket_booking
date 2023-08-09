@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:ticket_booking/features/events/data/models/event_model.dart';
-import 'package:ticket_booking/route.dart';
+import 'package:ticket_booking/core/routes/route.dart';
 
 class CustomListBuilder extends StatelessWidget {
   final List<EventModel> eventModel;

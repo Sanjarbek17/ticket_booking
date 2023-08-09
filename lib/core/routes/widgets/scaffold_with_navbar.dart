@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
-import 'package:ticket_booking/route.dart';
+import 'package:ticket_booking/core/routes/route.dart';
 
 class ScaffoldWithNavbar extends StatelessWidget {
   final Widget child;
@@ -34,7 +34,7 @@ class ScaffoldWithNavbar extends StatelessWidget {
           GButton(
             icon: Icons.book_online,
             onPressed: () {
-              context.go('/courses');
+              context.go('/reservation');
             },
           ),
           GButton(

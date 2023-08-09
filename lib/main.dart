@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ticket_booking/features/auth/presentation/auth_cubit/auth_cubit.dart';
-import 'package:ticket_booking/route.dart';
+import 'package:ticket_booking/core/routes/route.dart';
 
 import 'features/events/presentation/event_bloc/event_bloc.dart';
 import 'injection_container.dart';

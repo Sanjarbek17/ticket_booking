@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
 class CustomSearchBar extends StatelessWidget {
-  final TextEditingController searchController;
+  final TextEditingController? searchController;
   final Function(String)? onChanged;
   final Function(String)? onSubmitted;
   final VoidCallback? onTap;
   const CustomSearchBar({
     super.key,
-    required this.searchController,
+    this.searchController,
     this.onChanged,
     this.onSubmitted,
     this.onTap,

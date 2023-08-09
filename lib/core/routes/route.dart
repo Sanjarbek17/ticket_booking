@@ -3,13 +3,14 @@ import 'package:go_router/go_router.dart';
 import 'package:ticket_booking/features/auth/presentation/pages/main_page.dart';
 import 'package:ticket_booking/features/events/presentation/pages/create_event_page.dart';
 import 'package:ticket_booking/features/events/presentation/pages/details_page.dart';
-import 'package:ticket_booking/features/events/presentation/pages/scaffold_with_navbar.dart';
+import 'package:ticket_booking/core/routes/widgets/scaffold_with_navbar.dart';
 import 'package:ticket_booking/features/events/presentation/pages/saved_events_page.dart';
+import 'package:ticket_booking/features/reservation/presentation/pages/reservation_page.dart';
 
-import 'features/auth/presentation/auth_cubit/auth_cubit.dart';
-import 'features/auth/presentation/pages/login_page.dart';
-import 'features/auth/presentation/pages/register_page.dart';
-import 'features/events/presentation/pages/home_page.dart';
+import '../../features/auth/presentation/auth_cubit/auth_cubit.dart';
+import '../../features/auth/presentation/pages/login_page.dart';
+import '../../features/auth/presentation/pages/register_page.dart';
+import '../../features/events/presentation/pages/home_page.dart';
 
 class AppRouter {
   // auth
@@ -24,9 +25,12 @@ class AppRouter {
   static const String homeSavedRoute = '/saved';
   static const String homeSavedDetailsRoute = '/saved/details';
 
+  // reservation
+  static const String reservationRoute = '/reservation';
+
   static GoRouter router = GoRouter(
     debugLogDiagnostics: true,
-    initialLocation: initialRoute,
+    initialLocation: reservationRoute,
     routes: [
       GoRoute(
         path: initialRoute,
@@ -79,6 +83,11 @@ class AppRouter {
             path: '/create_event',
             name: 'createEvent',
             builder: (context, state) => const CreateEventPage(),
+          ),
+          GoRoute(
+            path: '/reservation',
+            name: 'reservation',
+            builder: (context, state) => const ReservationPage(),
           ),
         ],
       ),
