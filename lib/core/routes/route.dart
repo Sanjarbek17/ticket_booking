@@ -31,7 +31,7 @@ class AppRouter {
   // reservation
   static const String reservationRoute = '/reservation';
   static const String reservationCheckRoute = '/reservation/checkout';
-  static String Function(int) reservationFuncCheckRoute = (int id) => '/reservation/checkout/$id';
+  static const String reservationFuncCheckRoute = '/reservation/checkout';
 
   static GoRouter router = GoRouter(
     debugLogDiagnostics: true,
@@ -95,11 +95,11 @@ class AppRouter {
             builder: (context, state) => const ReservationPage(),
             routes: [
               GoRoute(
-                path: 'checkout/',
+                path: 'checkout',
                 name: 'checkout',
-                builder: (context, state) =>  CheckOutPage(
-                    eventModel: state.extra as EventModel,
-                    ),
+                builder: (context, state) => CheckOutPage(
+                  eventModel: state.extra as EventModel,
+                ),
               ),
             ],
           ),
@@ -113,12 +113,8 @@ class AppRouter {
       final bool loggingIn = state.fullPath == '/login' || state.fullPath == '/register';
 
       if (!loggedIn) {
-        bool value = await authCubit.isLogged();
-        if (value) {
-          return '/home';
-        } else {
           return loggingIn ? null : '/';
-        }
+        
       } else if (loggedIn) {
         return loggingIn ? '/home' : null;
       }

@@ -31,7 +31,6 @@ class _FirstPageHomeState extends State<FirstPageHome> {
           BlocProvider.of<EventBloc>(context).add(GetAllEventsEvent());
         }
         if (state is EventLoadingState) {
-          // TODO: Add shimmer effect
           return const Center(child: CircularProgressIndicator());
         }
         if (state is EventErrorState) {

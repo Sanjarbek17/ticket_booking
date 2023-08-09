@@ -20,17 +20,14 @@ class AuthCubit extends Cubit<AuthCubitState> {
   }
 
   Future<bool> isLogged() async {
-    print('logged');
     try {
       userModel = await authRepository.getCachedUser();
-      print(userModel);
       sl<Dio>().options.headers['X-CSRFToken'] = userModel!.crsfToken;
       sl<Dio>().options.headers['Cookie'] = userModel!.setCookie;
 
       emit(state.copyWith(status: AuthStatus.authenticated));
       return true;
     } catch (e) {
-      print('error $e');
       emit(state.copyWith(status: AuthStatus.initial));
       return false;
     }

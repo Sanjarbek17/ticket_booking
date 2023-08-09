@@ -13,21 +13,24 @@ class ReservRemoteDatasource {
     return (response.data as List).map((e) => EventModel.fromJson(e)).toList();
   }
 
-  Future<List<EventModel>> getReservs() async {
+  Future<List<ReservationModel>> getReservs() async {
+    print('started');
     final response = await dio.get('/reservations/all/');
+    // print(response.data);
     final events = await getAllEvents();
+    print(events);
     if (response.statusCode == 200) {
-      final reservs = (response.data as List).map((e) => events.where((element) => element.id == e['id']).first).toList();
+      List<ReservationModel> reservs = [];
+      for (var i in (response.data as List)) {
+        print('i not $i');
+        ReservationModel reserv = ReservationModel.fromJson(i);
+        print(reserv.status);
+        reserv.eventModel = events.firstWhere((element) => element.id == reserv.eventId);
+        print(reserv.eventId);
+        reservs.add(reserv);
+      }
+      print('done');
       return reservs;
-    } else {
-      throw Exception('Error: ${response.data}');
-    }
-  }
-
-  Future<ReservationModel> getReserv(int id) async {
-    final response = await dio.get('/reservations/$id/');
-    if (response.statusCode == 200) {
-      return ReservationModel.fromJson(response.data);
     } else {
       throw Exception('Error: ${response.data}');
     }
@@ -43,7 +46,7 @@ class ReservRemoteDatasource {
   }
 
   Future<ReservationModel> updateReserv(ReservationModel reservationModel) async {
-    final response = await dio.put('/reservations/${reservationModel.id}/', data: reservationModel.toJson());
+    final response = await dio.put('/reservations/${reservationModel.id}/update/', data: reservationModel.toJson());
     if (response.statusCode == 200) {
       return ReservationModel.fromJson(response.data);
     } else {
@@ -52,7 +55,7 @@ class ReservRemoteDatasource {
   }
 
   Future<void> cancelReserv(int id) async {
-    final response = await dio.delete('/reservations/$id/');
+    final response = await dio.delete('/reservations/$id/cancel/');
     if (response.statusCode != 204) {
       throw Exception('Error: ${response.data}');
     }

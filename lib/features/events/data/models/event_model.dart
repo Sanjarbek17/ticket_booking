@@ -46,7 +46,6 @@ class EventModel {
   });
 
   factory EventModel.fromJson(Map<String, dynamic> json) {
-    print(json);
     return EventModel(
       id: json['id'],
       name: json['name'],

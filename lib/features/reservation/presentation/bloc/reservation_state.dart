@@ -8,7 +8,7 @@ final class ReservationInitial extends ReservationState {}
 final class ReservationLoading extends ReservationState {}
 
 final class ReservationLoaded extends ReservationState {
-  final List<EventModel> reservations;
+  final List<ReservationModel> reservations;
 
   ReservationLoaded(this.reservations);
 }

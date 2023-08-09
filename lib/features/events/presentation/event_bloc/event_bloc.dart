@@ -28,9 +28,7 @@ class EventBloc extends Bloc<EventEvent, EventState> {
 
     on<GetEventByIdEvent>((event, emit) async {
       final events = (state as EventLoadedState).events;
-      print(events);
       final eventModel = events.firstWhere((element) => element.id == event.id);
-      print(eventModel.toJson());
       emit(EventLoadedState(events: events, event: eventModel));
     });
 
@@ -51,7 +49,6 @@ class EventBloc extends Bloc<EventEvent, EventState> {
         emit(EventCreatedState());
       } catch (e) {
         if (e is DioException) {
-          print(e.response?.data);
         }
         emit(EventErrorState(e.toString()));
       }
