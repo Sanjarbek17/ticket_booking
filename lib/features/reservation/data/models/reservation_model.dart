@@ -16,6 +16,7 @@ class ReservationModel {
   });
 
   factory ReservationModel.fromJson(Map<String, dynamic> json) {
+    print('json: $json');
     return ReservationModel(
       id: json['id'],
       eventId: json['event'],
@@ -27,7 +28,7 @@ class ReservationModel {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'event_id': eventId,
+      'event': eventId,
       'number_of_tickets': numberOfTickets,
       'status': status,
     };

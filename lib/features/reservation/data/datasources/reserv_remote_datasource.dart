@@ -37,11 +37,19 @@ class ReservRemoteDatasource {
   }
 
   Future<ReservationModel> createReserv(ReservationModel reservationModel) async {
-    final response = await dio.post('/reservations/create/', data: reservationModel.toJson());
-    if (response.statusCode == 201) {
-      return ReservationModel.fromJson(response.data);
-    } else {
-      throw Exception('Error: ${response.data}');
+    try {
+      final response = await dio.post('/reservations/create/', data: reservationModel.toJson());
+      if (response.statusCode == 201) {
+        return ReservationModel.fromJson(response.data);
+      } else {
+        throw Exception('Error: ${response.data}');
+      }
+    } catch (e) {
+      if (e is DioException) {
+        throw Exception('Error: ${e.response!.data}');
+      } else {
+        throw Exception('Error: ${e.toString()}');
+      }
     }
   }
 
@@ -62,12 +70,20 @@ class ReservRemoteDatasource {
   }
 
   // pay reserv
-  Future<ReservationModel> payReserv(int reservId) async {
-    final response = await dio.put('/reservations/$reservId/pay/');
-    if (response.statusCode == 200) {
-      return ReservationModel.fromJson(response.data);
-    } else {
-      throw Exception('Error: ${response.data}');
+  Future<String> payReserv(int reservId) async {
+    try {
+      final response = await dio.put('/reservations/$reservId/pay/');
+      if (response.statusCode == 200) {
+        return response.data['message'];
+      } else {
+        throw Exception('Error: ${response.data}');
+      }
+    } catch (e) {
+      if (e is DioException) {
+        throw Exception('Error: ${e.response!.data}');
+      } else {
+        throw Exception('Error: ${e.toString()}');
+      }
     }
   }
 }

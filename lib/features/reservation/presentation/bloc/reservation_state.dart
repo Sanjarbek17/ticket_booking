@@ -27,4 +27,8 @@ final class ReservationDeleted extends ReservationState {}
 
 final class ReservationCanceled extends ReservationState {}
 
-final class ReservationAccepted extends ReservationState {}
+final class ReservationAccepted extends ReservationState {
+  final String message;
+
+  ReservationAccepted(this.message);
+}

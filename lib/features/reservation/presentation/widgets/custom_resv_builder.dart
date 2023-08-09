@@ -20,7 +20,18 @@ class CustomResvBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ReservationBloc, ReservationState>(
       builder: (context, state) {
-        if (state is ReservationInitial || state is ReservationDeleted) {
+        if (state is ReservationInitial || state is ReservationDeleted || state is ReservationAccepted || state is ReservationCreated) {
+          if (state is ReservationAccepted) {
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(state.message),
+                duration: const Duration(seconds: 3),
+              ));
+            });
+          } else if (state is ReservationCreated) {
+            // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Reservation created')));
+            // context.pop(context);
+          }
           BlocProvider.of<ReservationBloc>(context).add(GetReservationListEvent());
         }
         if (state is ReservationLoading) {
@@ -68,7 +79,10 @@ class CustomCard extends StatelessWidget {
       },
       child: InkWell(
         onTap: () {
-          context.go(AppRouter.reservationFuncCheckRoute);
+          context.go(
+            AppRouter.reservationFuncCheckRoute,
+            extra: eventModel,
+          );
         },
         child: CustomPaint(
           painter: ContainerPainter(),
@@ -114,10 +128,7 @@ class CustomCard extends StatelessWidget {
                         reservationModel!.status == 'Pending'
                             ? ElevatedButton(
                                 onPressed: () {
-                                  context.go(
-                                    AppRouter.reservationFuncCheckRoute,
-                                    extra: eventModel,
-                                  );
+                                  context.read<ReservationBloc>().add(PayReservationEvent(reservationModel?.id ?? 0));
                                 },
                                 child: const Text('Buy Ticket', style: TextStyle(color: Color(0xFFF5F5F5), fontSize: 12.79, fontFamily: 'Poppins', fontWeight: FontWeight.w500)),
                               )

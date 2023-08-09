@@ -31,8 +31,15 @@ class _CheckOutPageState extends State<CheckOutPage> {
             return const Center(child: CircularProgressIndicator());
           } else if (state is ReservationError) {
             return Center(child: Text(state.message));
-          } else if (state is ReservationAccepted) {
-            return const Center(child: Text('Reservation Accepted'));
+          }
+          if (state is ReservationCreated) {
+            // show snackbar
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                content: Text('Reservation Created'),
+                duration: Duration(seconds: 1),
+              ));
+            });
           }
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30.0),

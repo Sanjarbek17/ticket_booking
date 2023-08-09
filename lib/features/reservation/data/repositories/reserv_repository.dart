@@ -20,8 +20,8 @@ class ReservRepository {
   }
 
   // pay reservation
-  Future<void> payReserv(int reservId) async {
-    await reservRemoteDatasource.payReserv(reservId);
+  Future<String> payReserv(int reservId) async {
+    return await reservRemoteDatasource.payReserv(reservId);
   }
 
   // cancel reservation
@@ -33,6 +33,4 @@ class ReservRepository {
   Future<void> updateReserv(ReservationModel reservationModel) async {
     await reservRemoteDatasource.updateReserv(reservationModel);
   }
-
-
 }

@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:dio/dio.dart';
 import 'package:meta/meta.dart';
 // ignore: unused_import
 import 'package:ticket_booking/features/events/data/models/event_model.dart';
@@ -22,17 +23,21 @@ class ReservationBloc extends Bloc<ReservationEvent, ReservationState> {
       }
     });
 
-    on<CreateReservationEvent> ((event, emit) async {
+    on<CreateReservationEvent>((event, emit) async {
       emit(ReservationLoading());
       try {
         await repository.createReserv(event.reservation);
         emit(ReservationCreated());
       } catch (e) {
-        emit(ReservationError(e.toString()));
+        if (e is DioException) {
+          emit(ReservationError(e.response!.data));
+        } else {
+          emit(ReservationError(e.toString()));
+        }
       }
     });
 
-    on<UpdateReservationEvent> ((event, emit) async {
+    on<UpdateReservationEvent>((event, emit) async {
       emit(ReservationLoading());
       try {
         await repository.updateReserv(event.reservation);
@@ -42,7 +47,7 @@ class ReservationBloc extends Bloc<ReservationEvent, ReservationState> {
       }
     });
 
-    on<DeleteReservationEvent> ((event, emit) async {
+    on<DeleteReservationEvent>((event, emit) async {
       emit(ReservationLoading());
       try {
         await repository.cancelReserv(event.id);
@@ -52,17 +57,17 @@ class ReservationBloc extends Bloc<ReservationEvent, ReservationState> {
       }
     });
 
-    on<PayReservationEvent> ((event, emit) async {
+    on<PayReservationEvent>((event, emit) async {
       emit(ReservationLoading());
       try {
-        await repository.payReserv(event.id);
-        emit(ReservationAccepted());
+        String message = await repository.payReserv(event.id);
+        emit(ReservationAccepted(message));
       } catch (e) {
         emit(ReservationError(e.toString()));
       }
     });
 
-    on<CancelReservationEvent> ((event, emit) async {
+    on<CancelReservationEvent>((event, emit) async {
       emit(ReservationLoading());
       try {
         await repository.cancelReserv(event.id);
