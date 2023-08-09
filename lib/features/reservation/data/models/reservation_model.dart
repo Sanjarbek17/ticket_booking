@@ -2,13 +2,13 @@ class ReservationModel {
   final int id;
   final int eventId;
   final int numberOfTickets;
-  final String status;
+  final String? status;
 
   ReservationModel({
     required this.id,
     required this.eventId,
     required this.numberOfTickets,
-    required this.status,
+     this.status,
   });
 
   factory ReservationModel.fromJson(Map<String, dynamic> json) {

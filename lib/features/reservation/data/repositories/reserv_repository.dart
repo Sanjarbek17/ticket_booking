@@ -1,13 +1,19 @@
 import 'package:ticket_booking/features/reservation/data/datasources/reserv_remote_datasource.dart';
+import 'package:ticket_booking/features/reservation/data/models/reservation_model.dart';
 
 class ReservRepository {
   ReservRemoteDatasource reservRemoteDatasource;
 
   ReservRepository({required this.reservRemoteDatasource});
 
+  // get all reservations
+  Future<List<ReservationModel>> getAllReserv() async {
+    return await reservRemoteDatasource.getReservs();
+  }
+
   // create reservation
-  Future<void> createReserv(int eventId, int numberOfTickets) async {
-    await reservRemoteDatasource.createReserv(eventId, numberOfTickets);
+  Future<void> createReserv(ReservationModel reservationModel) async {
+    await reservRemoteDatasource.createReserv(reservationModel);
   }
 
   // pay reservation
@@ -21,9 +27,9 @@ class ReservRepository {
   }
 
   // update reservation
-  Future<void> updateReserv(int reservId, int eventId, int numberOfTickets) async {
-    await reservRemoteDatasource.updateReserv(reservId, eventId, numberOfTickets);
+  Future<void> updateReserv(ReservationModel reservationModel) async {
+    await reservRemoteDatasource.updateReserv(reservationModel);
   }
 
-  
+
 }

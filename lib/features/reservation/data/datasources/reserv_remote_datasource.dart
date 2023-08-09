@@ -24,8 +24,8 @@ class ReservRemoteDatasource {
     }
   }
 
-  Future<ReservationModel> createReserv(int eventId, int numberOfTickets) async {
-    final response = await dio.post('/reservations/create/', data: {'event_id': eventId, 'number_of_tickets': numberOfTickets});
+  Future<ReservationModel> createReserv(ReservationModel reservationModel) async {
+    final response = await dio.post('/reservations/create/', data: reservationModel.toJson());
     if (response.statusCode == 201) {
       return ReservationModel.fromJson(response.data);
     } else {
@@ -33,11 +33,8 @@ class ReservRemoteDatasource {
     }
   }
 
-  Future<ReservationModel> updateReserv(int reservId, int eventId, int numberOfTickets) async {
-    final response = await dio.put('/reservations/$reservId/', data: {
-      'event_id': eventId,
-      'number_of_tickets': numberOfTickets,
-    });
+  Future<ReservationModel> updateReserv(ReservationModel reservationModel) async {
+    final response = await dio.put('/reservations/${reservationModel.id}/', data: reservationModel.toJson());
     if (response.statusCode == 200) {
       return ReservationModel.fromJson(response.data);
     } else {
