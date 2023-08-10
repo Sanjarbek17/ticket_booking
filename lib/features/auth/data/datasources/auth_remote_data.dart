@@ -43,15 +43,11 @@ class AuthRemoteData {
         'password1': password,
       },
     );
-    var cookie = response.headers['set-cookie'];
-    sl<Dio>().options.headers['X-CSRFToken'] = Cookie.fromSetCookieValue(cookie!.first).value;
     if (response.statusCode != 201) {
       throw Exception('Failed to register ${response.data}');
     }
 
-    return userModel
-      ..crsfToken = Cookie.fromSetCookieValue(cookie.first)
-      ..setCookie = "csrftoken=${Cookie.fromSetCookieValue(cookie.first).value}; sessionid=${Cookie.fromSetCookieValue(cookie.last).value}";
+    return userModel;
   }
 
   Future<UserModel> logout(UserModel userModel) async {

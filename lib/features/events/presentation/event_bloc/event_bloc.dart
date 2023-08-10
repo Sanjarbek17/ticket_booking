@@ -49,8 +49,10 @@ class EventBloc extends Bloc<EventEvent, EventState> {
         emit(EventCreatedState());
       } catch (e) {
         if (e is DioException) {
+          emit(EventErrorState(e.response!.data));
+        } else {
+          emit(EventErrorState(e.toString()));
         }
-        emit(EventErrorState(e.toString()));
       }
     });
 

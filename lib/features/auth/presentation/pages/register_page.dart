@@ -117,7 +117,7 @@ class _RegisterPageState extends State<RegisterPage> {
         );
     if (isLoggin) {
       // ignore: use_build_context_synchronously
-      context.go(AppRouter.homeRoute);
+      context.go(AppRouter.loginRoute);
     }
   }
 }

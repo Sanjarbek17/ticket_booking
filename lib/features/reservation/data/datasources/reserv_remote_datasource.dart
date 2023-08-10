@@ -14,22 +14,16 @@ class ReservRemoteDatasource {
   }
 
   Future<List<ReservationModel>> getReservs() async {
-    print('started');
     final response = await dio.get('/reservations/all/');
     // print(response.data);
     final events = await getAllEvents();
-    print(events);
     if (response.statusCode == 200) {
       List<ReservationModel> reservs = [];
       for (var i in (response.data as List)) {
-        print('i not $i');
         ReservationModel reserv = ReservationModel.fromJson(i);
-        print(reserv.status);
         reserv.eventModel = events.firstWhere((element) => element.id == reserv.eventId);
-        print(reserv.eventId);
         reservs.add(reserv);
       }
-      print('done');
       return reservs;
     } else {
       throw Exception('Error: ${response.data}');

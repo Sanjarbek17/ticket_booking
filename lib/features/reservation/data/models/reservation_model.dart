@@ -16,7 +16,6 @@ class ReservationModel {
   });
 
   factory ReservationModel.fromJson(Map<String, dynamic> json) {
-    print('json: $json');
     return ReservationModel(
       id: json['id'],
       eventId: json['event'],

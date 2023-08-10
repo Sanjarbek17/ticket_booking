@@ -21,8 +21,8 @@ class _CreateEventPageState extends State<CreateEventPage> {
   TextEditingController nameController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController placeOfEventController = TextEditingController();
-  TextEditingController numberOfSeatsController = TextEditingController(text: '0');
-  TextEditingController priceController = TextEditingController(text: '0.00');
+  TextEditingController numberOfSeatsController = TextEditingController();
+  TextEditingController priceController = TextEditingController();
 
   String selectedTopic = 'Information Technologies';
   String selectedCurrency = 'UZS';

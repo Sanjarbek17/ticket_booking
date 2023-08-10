@@ -65,8 +65,6 @@ class CustomCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     EventModel? eventModel = reservationModel?.eventModel;
-    print(reservationModel!.status.runtimeType);
-    print(reservationModel!.status);
     return Dismissible(
       key: Key(eventModel?.id.toString() ?? 'Unknown'),
       // Provide a function that tells the app

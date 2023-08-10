@@ -55,7 +55,7 @@ class AuthCubit extends Cubit<AuthCubitState> {
       // call remote data
       await authRepository.register(userModel, password);
       // cache user
-      emit(state.copyWith(status: AuthStatus.authenticated));
+      emit(state.copyWith(status: AuthStatus.unauthenticated));
       return true;
     } catch (e) {
       emit(state.copyWith(status: AuthStatus.error, message: e.toString()));
