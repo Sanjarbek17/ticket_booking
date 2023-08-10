@@ -1,10 +1,19 @@
 # ticket_booking
 
-A new Flutter project.
+Ticket booking app is a flutter app that allows users to book tickets for events.
 
 ## Figma ui design
 
 [Ticket Booking UI](https://www.figma.com/file/SjU3a9Os6i4EwtiXwBQM2O/Ticket-booking-system-ui?type=design&node-id=1%3A3&mode=design&t=7k9zJ4c4ALxSdjqJ-1)
+
+## Screenshots of the app
+
+<!-- div thet places horizontally -->
+<div style="display:flex;flex-direction:row;justify-content:space-between;align-items:center">
+<img src="flutter_01.png" width=300>
+<img src="flutter_04.png" width=300>
+<img src="flutter_03.png" width=300>
+</div>
 
 ## Getting Started
 
